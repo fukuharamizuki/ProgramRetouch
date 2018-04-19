@@ -1,6 +1,8 @@
 package ec;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import beans.BuyDataBeans;
 import beans.UserDataBeans;
+import dao.BuyDAO;
 import dao.UserDAO;
 
 /**
@@ -41,6 +45,20 @@ public class UserData extends HttpServlet {
 			request.setAttribute("validationMessage", validationMessage);
 			request.setAttribute("udb", udb);
 
+
+			BuyDAO buyDao = new BuyDAO();
+			List<BuyDataBeans> buyDataList;
+			try {
+				buyDataList = BuyDAO.buyData(userId);
+				request.setAttribute("buyDataList", buyDataList);
+				BuyDataBeans bdl = (BuyDataBeans) session.getAttribute("buyDataList");
+
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+
+
+
 			request.getRequestDispatcher(EcHelper.USER_DATA_PAGE).forward(request, response);
 
 		} catch (Exception e) {
@@ -48,6 +66,8 @@ public class UserData extends HttpServlet {
 			session.setAttribute("errorMessage", e.toString());
 			response.sendRedirect("Error");
 		}
+
+
 	}
 
 }

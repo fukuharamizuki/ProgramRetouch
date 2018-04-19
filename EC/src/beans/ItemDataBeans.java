@@ -40,8 +40,16 @@ public class ItemDataBeans implements Serializable {
 	public void setFileName(String filename) {
 		this.fileName = filename;
 	}
+	public ItemDataBeans() {
+	}
 
 
+	public ItemDataBeans(int inputBuyId, int inputItemId, String inputName, int inputPrice) {
+		this.id = inputItemId;
+		this.name = inputName;
+		this.price = inputPrice;
+
+	}
 
 
 }

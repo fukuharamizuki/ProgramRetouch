@@ -34,8 +34,8 @@ public class DeliveryMethodDAO {
 			while (rs.next()) {
 				DeliveryMethodDataBeans dmdb = new DeliveryMethodDataBeans();
 				dmdb.setId(rs.getInt("id"));
-				dmdb.setName(rs.getString("name"));
-				dmdb.setPrice(rs.getInt("price"));
+				dmdb.setName(rs.getString("delivery_name"));
+				dmdb.setPrice(rs.getInt("delivery_price"));
 				deliveryMethodDataBeansList.add(dmdb);
 			}
 
@@ -73,8 +73,8 @@ public class DeliveryMethodDAO {
 			DeliveryMethodDataBeans dmdb = new DeliveryMethodDataBeans();
 			if (rs.next()) {
 				dmdb.setId(rs.getInt("id"));
-				dmdb.setName(rs.getString("name"));
-				dmdb.setPrice(rs.getInt("price"));
+				dmdb.setName(rs.getString("delivery_name"));
+				dmdb.setPrice(rs.getInt("delivery_price"));
 			}
 
 			System.out.println("searching DeliveryMethodDataBeans by DeliveryMethodID has been completed");
@@ -104,8 +104,8 @@ public class DeliveryMethodDAO {
 			con = DBManager.getConnection();
 
 			st = con.prepareStatement(
-					"SELECT m_delivery_method.name,"
-					+ " m_delivery_method.price"
+					"SELECT m_delivery_method.delivery_name,"
+					+ " m_delivery_method.delivery_price"
 					+ " FROM t_buy"
 					+ " JOIN m_delivery_method"
 					+ " ON m_delivery_method.id = t_buy.delivery_method_id"
@@ -116,8 +116,8 @@ public class DeliveryMethodDAO {
 			DeliveryMethodDataBeans dmdb = new DeliveryMethodDataBeans();
 
 			while (rs.next()) {
-				dmdb.setName(rs.getString("name"));
-				dmdb.setPrice(rs.getInt("m_delivery_method.price"));
+				dmdb.setName(rs.getString("m_delivery_method.delivery_name"));
+				dmdb.setPrice(rs.getInt("m_delivery_method.delivery_price"));
 
 			}
 
